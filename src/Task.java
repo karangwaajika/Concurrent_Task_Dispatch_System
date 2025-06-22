@@ -25,4 +25,8 @@ public class Task implements Comparable<Task>{
     public String getName(){
         return this.name;
     }
+
+    public int getPriority(){
+        return this.priority;
+    }
 }
