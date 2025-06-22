@@ -14,7 +14,7 @@ public class Monitor implements Runnable{
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                Thread.sleep(5000);
+                Thread.sleep(1000);
 
                 int  qSize      = queue.size();
                 int  poolSize   = pool.getPoolSize();     // workers
