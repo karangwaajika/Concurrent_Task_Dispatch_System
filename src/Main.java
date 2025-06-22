@@ -5,7 +5,7 @@ public class Main {
     public static void main(String[] args) {
         BlockingQueue<Task> queue = new PriorityBlockingQueue<>();
 
-        ProducerHighLevel runnable = new ProducerHighLevel(queue);
+        Producer runnable = new Producer(queue);
         Thread producerHighLevel1 = new Thread(runnable);
         Thread producerHighLevel2 = new Thread(runnable);
         try{

@@ -2,12 +2,12 @@ import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ProducerHighLevel implements Runnable{
+public class Producer implements Runnable{
     private BlockingQueue<Task> queue = null;
     private final AtomicInteger taskNumber = new AtomicInteger(0); // to make task name unique
     Random random = new Random();
 
-    public ProducerHighLevel(BlockingQueue<Task> queue){
+    public Producer(BlockingQueue<Task> queue){
         this.queue = queue;
     }
 
