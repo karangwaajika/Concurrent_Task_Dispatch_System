@@ -10,6 +10,7 @@ public class Producer implements Runnable{
 
     public Producer(BlockingQueue<Task> queue, int numberOfTask){
         this.queue = queue;
+        this.numberOfTask = numberOfTask;
     }
 
     @Override

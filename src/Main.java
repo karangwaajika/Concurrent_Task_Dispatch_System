@@ -1,5 +1,4 @@
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,6 +8,7 @@ public class Main {
         Producer runnable = new Producer(queue, NUMBER_OF_TASK);
         Thread producerHighLevel1 = new Thread(runnable);
         Thread producerHighLevel2 = new Thread(runnable);
+
         try{
             producerHighLevel1.start();
             producerHighLevel1.join();
@@ -20,6 +20,14 @@ public class Main {
         }catch (InterruptedException e){
             System.out.println( e.getMessage());
         }
+
+        Consumer consumerRunnable = new Consumer(queue, queue.size());
+
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        executor.submit(consumerRunnable);
+        executor.submit(consumerRunnable);
+
+        executor.shutdown();
 
     }
 }
