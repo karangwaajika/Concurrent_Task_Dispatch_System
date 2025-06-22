@@ -33,4 +33,10 @@ public class Task implements Comparable<Task>{
     public String getTime(){
         return  this.createdTimestamp.toString();
     }
+
+    public UUID getId(){
+        return this.id;
+    }
+
+    enum TaskStatus { SUBMITTED, PROCESSING, COMPLETED, FAILED }
 }

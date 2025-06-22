@@ -1,3 +1,4 @@
+import java.util.UUID;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -5,9 +6,10 @@ public class Main {
     public static void main(String[] args) {
         final BlockingQueue<Task> queue = new PriorityBlockingQueue<>();
         final int NUMBER_OF_TASK = 10;
+        ConcurrentHashMap<UUID, Task.TaskStatus> statusMap = new ConcurrentHashMap<>();
 
         // producer
-        Producer runnable = new Producer(queue, NUMBER_OF_TASK);
+        Producer runnable = new Producer(queue, NUMBER_OF_TASK, statusMap);
         Thread producerHighLevel1 = new Thread(runnable);
         Thread producerHighLevel2 = new Thread(runnable);
 

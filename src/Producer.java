@@ -1,5 +1,7 @@
 import java.util.Random;
+import java.util.UUID;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Logger;
 
@@ -8,11 +10,14 @@ public class Producer implements Runnable{
     int numberOfTask;
     private final AtomicInteger taskNumber = new AtomicInteger(0); // to make task name unique
     Random random = new Random();
+    ConcurrentHashMap<UUID, Task.TaskStatus> statusMap;
     private static final Logger logger = Logger.getLogger(Producer.class.getName());
 
-    public Producer(BlockingQueue<Task> queue, int numberOfTask){
+    public Producer(BlockingQueue<Task> queue, int numberOfTask,
+                    ConcurrentHashMap<UUID, Task.TaskStatus> statusMap ){
         this.queue = queue;
         this.numberOfTask = numberOfTask;
+        this.statusMap = statusMap;
     }
 
     @Override
@@ -27,7 +32,12 @@ public class Producer implements Runnable{
                 int randomPriority = random.nextInt(maxPriority - minPriority + 1) + minPriority;
                 Task currentTask = new Task("task-"+taskNumber.incrementAndGet(), randomPriority,
                         "task produced by "+threadName);
-                queue.put(currentTask);
+
+                statusMap.put(currentTask.getId(), Task.TaskStatus.SUBMITTED);
+                System.out.println(currentTask.getName()+ "Task submitted");
+
+                queue.put(currentTask); // add task
+
 
                 System.out.printf("[%s] produced %s (priority: %d, time: %s)\n",
                         threadName, currentTask.getName(), currentTask.getPriority(),
@@ -35,7 +45,7 @@ public class Producer implements Runnable{
 //                logger.info(String.format("[%s] produced %s (priority: %d, time: %s)\n",
 //                        threadName, currentTask.getName(), currentTask.getPriority(),
 //                        currentTask.getTime()));
-                Thread.sleep(100);
+                Thread.sleep(300);
             }
 
         } catch (InterruptedException e) {
