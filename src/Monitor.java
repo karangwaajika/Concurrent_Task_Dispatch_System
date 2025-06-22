@@ -5,20 +5,26 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class Monitor implements Runnable{
 
     private BlockingQueue<Task> queue = null;
-    private Thread currentThread = null;
-    public Monitor(BlockingQueue<Task> queue, Thread currentThread){
+    private ThreadPoolExecutor pool = null;
+    public Monitor(BlockingQueue<Task> queue, ThreadPoolExecutor pool){
         this.queue = queue;
-        this.currentThread = currentThread;
+        this.pool = pool;
     }
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                Thread.sleep(1000);
-                int queueSize = queue.size();
-                String threadStatus = currentThread.getState().toString();
-                System.out.printf("Monitor: queueSize = %d, Thread name: %s, thread status= %s \n",
-                        queueSize, currentThread.getName(), threadStatus);
+                Thread.sleep(5000);
+
+                int  qSize      = queue.size();
+                int  poolSize   = pool.getPoolSize();     // workers
+                int  active     = pool.getActiveCount();  // currently executing
+                long completed  = pool.getCompletedTaskCount();
+                int  largest    = pool.getLargestPoolSize();
+
+                System.out.printf(
+                        "Monitor => queue=%d | pool=%d | active=%d | largest=%d | completed=%d%n",
+                        qSize, poolSize, active, largest, completed);
 
             } catch (InterruptedException e) {
                 break;

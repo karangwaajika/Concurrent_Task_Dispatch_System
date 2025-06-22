@@ -13,10 +13,6 @@ public class Main {
         Thread producerHighLevel1 = new Thread(runnable);
         Thread producerHighLevel2 = new Thread(runnable);
 
-        //monitor
-        Monitor runnableMonitor = new Monitor(queue, producerHighLevel1);
-        Thread monitor = new Thread(runnableMonitor);
-        monitor.start();
 
         try{
             producerHighLevel1.start();
@@ -40,6 +36,14 @@ public class Main {
         executor.submit(new Consumer(queue, consumedCount, queue.size(), statusMap));
 
         executor.shutdown();
+
+        // ---- safe down-cast ----
+        ThreadPoolExecutor pool = (ThreadPoolExecutor) executor;
+
+        //monitor
+        Monitor runnableMonitor = new Monitor(queue, pool);
+        Thread monitor = new Thread(runnableMonitor);
+        monitor.start();
 
     }
 }
