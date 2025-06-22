@@ -39,7 +39,9 @@ public class Producer implements Runnable{
 
                     buffer.add(currentTask);
 
-                    System.out.printf("%s added %s !!\n", threadName, currentTask.getName());
+                    System.out.printf("[%s] produced %s (priority: %d, time: %s)\n",
+                            threadName, currentTask.getName(), currentTask.getPriority(),
+                            currentTask.getTime());
 
                     buffer.notifyAll(); // wake consumer
 
