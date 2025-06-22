@@ -21,4 +21,8 @@ public class Task implements Comparable<Task>{
         //insert highest priority first.
         return Integer.compare(o.priority, this.priority);
     }
+
+    public String getName(){
+        return this.name;
+    }
 }
