@@ -17,11 +17,13 @@ public class Main {
 
             producerHighLevel2.start();
             producerHighLevel2.join();
-            System.out.println(queue.size());
-            System.out.println(queue.stream().map(i->i.getName()+" "+i.getPriority()).toList());
+            System.out.println("Total Size produced:"+ queue.size());
+//            System.out.println(queue.stream().map(i->i.getName()+" "+i.getPriority()).toList());
         }catch (InterruptedException e){
             System.out.println( e.getMessage());
         }
+
+        System.out.println("######################## CONSUMER ################# ");
 
         // consumer
         AtomicInteger consumedCount = new AtomicInteger(0);

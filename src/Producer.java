@@ -26,7 +26,10 @@ public class Producer implements Runnable{
                 Task currentTask = new Task("task-"+taskNumber.incrementAndGet(), randomPriority,
                         "task produced by "+threadName);
                 queue.put(currentTask);
-                System.out.printf("%s added %s !!\n", threadName, currentTask.getName());
+
+                System.out.printf("[%s] produced %s (priority: %d, time: %s)\n",
+                        threadName, currentTask.getName(), currentTask.getPriority(),
+                        currentTask.getTime());
                 Thread.sleep(50);
             }
 
