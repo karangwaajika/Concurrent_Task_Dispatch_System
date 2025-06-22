@@ -13,6 +13,11 @@ public class Main {
         Thread producerHighLevel1 = new Thread(runnable);
         Thread producerHighLevel2 = new Thread(runnable);
 
+        //monitor
+        Monitor runnableMonitor = new Monitor(queue, producerHighLevel1);
+        Thread monitor = new Thread(runnableMonitor);
+        monitor.start();
+
         try{
             producerHighLevel1.start();
             producerHighLevel1.join();
