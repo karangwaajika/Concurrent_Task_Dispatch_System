@@ -6,9 +6,10 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         final int  BUFFER_CAPACITY   = 5;
+        final int NUMBER_OF_TASK = 10;
         List<Task> buffer = new ArrayList<>();
 
-        Producer runnable = new Producer(buffer, BUFFER_CAPACITY);
+        Producer runnable = new Producer(buffer, BUFFER_CAPACITY, NUMBER_OF_TASK);
         Thread producerLowLevel1 = new Thread(runnable);
         Thread producerLowLevel2 = new Thread(runnable);
 

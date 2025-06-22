@@ -7,13 +7,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Producer implements Runnable{
     List<Task> buffer = null; //not synchronized
-    int bufferCapacity = 0;
+    int bufferCapacity;
+    int numberOfTask;
     AtomicInteger taskNumber = new AtomicInteger(0); // to make task name unique
     Random random = new Random();
-    public Producer(List<Task> buffer, int bufferCapacity) {
+    public Producer(List<Task> buffer, int bufferCapacity, int numberOfTask) {
 
         this.buffer = buffer;
         this.bufferCapacity = bufferCapacity;
+        this.numberOfTask = numberOfTask;
     }
 
     @Override
@@ -24,7 +26,7 @@ public class Producer implements Runnable{
         String threadName = Thread.currentThread().getName()+" low-level";
 
         try {
-            for (int item = 0; item < 10; item++) {
+            for (int item = 0; item < numberOfTask; item++) {
                 synchronized (buffer){
 
                     while (buffer.size() == this.bufferCapacity) {

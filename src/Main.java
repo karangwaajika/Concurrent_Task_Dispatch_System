@@ -3,9 +3,10 @@ import java.util.concurrent.PriorityBlockingQueue;
 
 public class Main {
     public static void main(String[] args) {
-        BlockingQueue<Task> queue = new PriorityBlockingQueue<>();
+        final BlockingQueue<Task> queue = new PriorityBlockingQueue<>();
+        final int NUMBER_OF_TASK = 10;
 
-        Producer runnable = new Producer(queue);
+        Producer runnable = new Producer(queue, NUMBER_OF_TASK);
         Thread producerHighLevel1 = new Thread(runnable);
         Thread producerHighLevel2 = new Thread(runnable);
         try{

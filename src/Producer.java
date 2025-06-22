@@ -4,10 +4,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Producer implements Runnable{
     private BlockingQueue<Task> queue = null;
+    int numberOfTask;
     private final AtomicInteger taskNumber = new AtomicInteger(0); // to make task name unique
     Random random = new Random();
 
-    public Producer(BlockingQueue<Task> queue){
+    public Producer(BlockingQueue<Task> queue, int numberOfTask){
         this.queue = queue;
     }
 
@@ -19,7 +20,7 @@ public class Producer implements Runnable{
         String threadName = Thread.currentThread().getName();
 
         try {
-            for (int item = 0; item < 10; item++) {
+            for (int item = 0; item < this.numberOfTask; item++) {
                 int randomPriority = random.nextInt(maxPriority - minPriority + 1) + minPriority;
                 Task currentTask = new Task("task-"+taskNumber.incrementAndGet(), randomPriority,
                         "task produced by "+threadName);
