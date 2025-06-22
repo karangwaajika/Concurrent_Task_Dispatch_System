@@ -34,7 +34,7 @@ public class Producer implements Runnable{
                         "task produced by "+threadName);
 
                 statusMap.put(currentTask.getId(), Task.TaskStatus.SUBMITTED);
-                System.out.println(currentTask.getName()+ "Task submitted");
+                System.out.println(currentTask.getName()+ " Task submitted");
 
                 queue.put(currentTask); // add task
 

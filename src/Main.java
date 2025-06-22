@@ -31,8 +31,8 @@ public class Main {
         AtomicInteger consumedCount = new AtomicInteger(0);
 
         ExecutorService executor = Executors.newFixedThreadPool(2);
-        executor.submit(new Consumer(queue, consumedCount, queue.size()));
-        executor.submit(new Consumer(queue, consumedCount, queue.size()));
+        executor.submit(new Consumer(queue, consumedCount, queue.size(), statusMap));
+        executor.submit(new Consumer(queue, consumedCount, queue.size(), statusMap));
 
         executor.shutdown();
 
