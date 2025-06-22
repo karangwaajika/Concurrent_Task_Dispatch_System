@@ -23,19 +23,21 @@ public class Consumer implements Runnable{
                 int totalConsumed = consumedCount.incrementAndGet();
                 threadConsumedCount++;
 
-                System.out.printf("[%s] Consumed %s (my count: %d, total: %d/%d, time: %s)\n",
+                System.out.printf("[%s] Consumed %s (my count: %d, total: %d/%d, priority: %d,time: %s)\n",
                         threadName, task.getName(), threadConsumedCount, totalConsumed,
-                        numberOfTask, task.getTime());
+                        numberOfTask, task.getPriority() ,task.getTime());
 
                 // Simulate processing time
                 Thread.sleep(500);
 
-                if (totalConsumed >= numberOfTask) {
-                    System.out.printf("[%s] Target reached! Stopping. (my count: %d)\n",
-                            threadName, threadConsumedCount);
-                    break;
-                }
+//                if (totalConsumed >= numberOfTask) {
+//                    System.out.printf("[%s] Target reached! Stopping. (my count: %d)\n",
+//                            threadName, threadConsumedCount);
+//                    break;
+//                }
             }
+            System.out.printf("[%s] ✅ COMPLETED! Successfully consumed %d tasks\n",
+                    threadName, threadConsumedCount);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             System.out.println("Consumer was interrupted!");

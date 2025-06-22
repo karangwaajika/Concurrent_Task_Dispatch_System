@@ -18,7 +18,7 @@ public class Task implements Comparable<Task>{
 
     @Override
     public int compareTo(Task o) {
-        //insert highest priority first.
+        //insert highest priority first or big one first
         return Integer.compare(o.priority, this.priority);
     }
 
