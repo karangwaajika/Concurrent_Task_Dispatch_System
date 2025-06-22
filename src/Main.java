@@ -1,10 +1,12 @@
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
     public static void main(String[] args) {
         final BlockingQueue<Task> queue = new PriorityBlockingQueue<>();
         final int NUMBER_OF_TASK = 10;
 
+        // producer
         Producer runnable = new Producer(queue, NUMBER_OF_TASK);
         Thread producerHighLevel1 = new Thread(runnable);
         Thread producerHighLevel2 = new Thread(runnable);
@@ -21,11 +23,12 @@ public class Main {
             System.out.println( e.getMessage());
         }
 
-        Consumer consumerRunnable = new Consumer(queue, queue.size());
+        // consumer
+        AtomicInteger consumedCount = new AtomicInteger(0);
 
         ExecutorService executor = Executors.newFixedThreadPool(2);
-        executor.submit(consumerRunnable);
-        executor.submit(consumerRunnable);
+        executor.submit(new Consumer(queue, consumedCount, queue.size()));
+        executor.submit(new Consumer(queue, consumedCount, queue.size()));
 
         executor.shutdown();
 

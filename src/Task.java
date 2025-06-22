@@ -29,4 +29,8 @@ public class Task implements Comparable<Task>{
     public int getPriority(){
         return this.priority;
     }
+
+    public String getTime(){
+        return  this.createdTimestamp.toString();
+    }
 }
