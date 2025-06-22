@@ -20,7 +20,7 @@ public class Main {
         producer1.join();
         producer2.join();
 
-        System.out.println("#####################  CONSUMER  ################# ");
+        System.out.println("######################## CONSUMER ################# ");
 
         // consumer
         AtomicInteger consumedCount = new AtomicInteger(0);
@@ -33,8 +33,13 @@ public class Main {
         // Monitor
         ThreadPoolExecutor pool = (ThreadPoolExecutor) executor; // cast executor
         Thread monitor = new Thread(new Monitor(queue, pool), "monitor");
-        monitor.setDaemon(true);
         monitor.start();
+
+
+        // shutdown consumer
+//        pool.shutdown();
+//        // stop monitor
+//        monitor.interrupt();
 
     }
 }
