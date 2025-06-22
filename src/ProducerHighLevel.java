@@ -15,6 +15,7 @@ public class ProducerHighLevel implements Runnable{
                         "task produced by "+threadName);
                 queue.put(currentTask);
                 System.out.printf("%s added %s !!\n", threadName, currentTask.getName());
+                Thread.sleep(800);
             }
 
         } catch (InterruptedException e) {
